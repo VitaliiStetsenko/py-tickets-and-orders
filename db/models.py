@@ -1,9 +1,7 @@
 from django.contrib.auth.models import AbstractUser
 from django.core.exceptions import ValidationError
 from django.db import models
-from django.db.models import ForeignKey
-
-import settings
+from django.conf import settings
 
 
 class Genre(models.Model):
@@ -66,14 +64,14 @@ class Order(models.Model):
     )
 
     def __str__(self) -> str:
-        return str(self.created_at)
+        return f"{self.created_at}"
 
     class Meta:
         ordering = ["-created_at"]
 
 
 class Ticket(models.Model):
-    movie_session = ForeignKey(
+    movie_session = models.ForeignKey(
         to=MovieSession,
         on_delete=models.CASCADE,
         related_name="tickets"
